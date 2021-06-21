@@ -5,6 +5,8 @@ export const AppState = reactive({
   user: {},
   account: {},
   bugs: [],
+  bugDetails: null,
+  bugNotes: [],
   statusSortToggle: true,
   dateSortToggle: true
 })

@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{ name: 'Bugs' }" class="nav-link">
+          <router-link :to="{ name: 'Bugs' }" class="nav-link text-primary">
             Bugs
           </router-link>
         </li>

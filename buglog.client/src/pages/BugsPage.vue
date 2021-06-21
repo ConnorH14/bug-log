@@ -32,6 +32,17 @@
       </div>
     </div>
   </div>
+  <div class="add-bug-btn"
+       role="button"
+       title="Add Bug"
+       type="button"
+       data-toggle="modal"
+       data-target="#bugModal"
+       v-if="account.id"
+  >
+    <h2><i class="mdi mdi-alert-plus"></i></h2>
+  </div>
+  <BugModal />
 </template>
 
 <script>
@@ -44,57 +55,20 @@ export default {
     watchEffect(async() => {
       try {
         await bugService.getAllBugs()
+        AppState.dateSortToggle = true
+        bugService.sortDate()
       } catch (error) {
         Notification.toast(error)
       }
     })
     return {
       bugs: computed(() => AppState.bugs),
+      account: computed(() => AppState.account),
       sortStatus() {
-        if (AppState.statusSortToggle) {
-          document.getElementById('status-icon').classList.remove('mdi-arrow-up-drop-circle')
-          document.getElementById('status-icon').classList.remove('mdi-arrow-right-drop-circle')
-          document.getElementById('status-icon').classList.add('mdi-arrow-down-drop-circle')
-          AppState.statusSortToggle = false
-          AppState.bugs.sort(function(a, b) {
-            if (a.closed < b.closed) { return -1 }
-            if (a.closed > b.closed) { return 1 }
-            return 0
-          })
-        } else {
-          document.getElementById('status-icon').classList.remove('mdi-arrow-down-drop-circle')
-          document.getElementById('status-icon').classList.remove('mdi-arrow-right-drop-circle')
-          document.getElementById('status-icon').classList.add('mdi-arrow-up-drop-circle')
-          AppState.statusSortToggle = true
-          AppState.bugs.sort(function(a, b) {
-            if (a.closed < b.closed) { return 1 }
-            if (a.closed > b.closed) { return -1 }
-            return 0
-          })
-        }
+        bugService.sortStatus()
       },
       sortDate() {
-        if (AppState.dateSortToggle) {
-          document.getElementById('date-icon').classList.remove('mdi-arrow-up-drop-circle')
-          document.getElementById('date-icon').classList.remove('mdi-arrow-right-drop-circle')
-          document.getElementById('date-icon').classList.add('mdi-arrow-down-drop-circle')
-          AppState.dateSortToggle = false
-          AppState.bugs.sort(function(a, b) {
-            if (a.updatedAt < b.updatedAt) { return 1 }
-            if (a.updatedAt > b.updatedAt) { return -1 }
-            return 0
-          })
-        } else {
-          document.getElementById('date-icon').classList.remove('mdi-arrow-down-drop-circle')
-          document.getElementById('date-icon').classList.remove('mdi-arrow-right-drop-circle')
-          document.getElementById('date-icon').classList.add('mdi-arrow-up-drop-circle')
-          AppState.dateSortToggle = true
-          AppState.bugs.sort(function(a, b) {
-            if (a.updatedAt < b.updatedAt) { return -1 }
-            if (a.updatedAt > b.updatedAt) { return 1 }
-            return 0
-          })
-        }
+        bugService.sortDate()
       }
     }
   }
@@ -124,6 +98,20 @@ export default {
 
 .style-1 {
   background-color: #dad6d6;
+}
+
+.add-bug-btn {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 10;
+  background-color: #0cbe7abb;
+  border-radius: 50%;
+  color: var(--primary);
+  text-align: center;
+  -webkit-text-stroke: 1px black;
 }
 
 @media screen and (min-width: 1300px) {
