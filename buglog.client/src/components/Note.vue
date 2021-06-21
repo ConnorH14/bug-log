@@ -1,5 +1,5 @@
 <template>
-  <div class="col-lg-12">
+  <div class="col-lg-12" v-if="bug && note">
     <div class="note-card shadow my-2">
       <div class="text-right mr-1 mt-1">
         <i v-if="(note.creator.id === account.id) && (!bug.closed)" class="mdi mdi-trash-can" role="button" title="Delete Note" @click="deleteNote(note.id)"></i>

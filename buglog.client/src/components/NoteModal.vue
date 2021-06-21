@@ -18,10 +18,10 @@
         </div>
         <div class="modal-body">
           <form @submit.prevent="addNote">
-            <label for="bug-title" class="sr-only">Note Description</label>
+            <label for="bug-body" class="sr-only">Note Description</label>
             <input type="text"
-                   name="bug-description"
-                   id="bug-description"
+                   name="bug-body"
+                   id="bug-body"
                    placeholder="Note Description"
                    class="mb-3 w-100"
                    v-model="state.noteData.body"

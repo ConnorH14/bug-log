@@ -38,15 +38,19 @@
       </div>
     </div>
   </div>
-  <div class="add-note-btn"
-       role="button"
-       title="Add Note"
-       type="button"
-       data-toggle="modal"
-       data-target="#noteModal"
-       v-if="account.id && !bug.closed"
-  >
-    <h2><i class="mdi mdi-clipboard-plus"></i></h2>
+  <div v-if="bug">
+    <div class="add-note-btn"
+         role="button"
+         title="Add Note"
+         type="button"
+         data-toggle="modal"
+         data-target="#noteModal"
+         v-if="account.id && !bug.closed"
+    >
+      <h2>
+        <i class="mdi mdi-clipboard-plus"></i>
+      </h2>
+    </div>
   </div>
   <NoteModal />
   <EditBugModal />
